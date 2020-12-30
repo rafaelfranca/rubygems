@@ -270,7 +270,7 @@ module Bundler
         Bundler.ui.info hint_text("ci")
 
         result = Bundler.ui.ask "Enter a CI service. github/travis/gitlab/circle/(none):"
-        if result =~ /github|travis|gitlab|circle/
+        if /github|travis|gitlab|circle/.match?(result)
           ci_template = result
         else
           ci_template = false
