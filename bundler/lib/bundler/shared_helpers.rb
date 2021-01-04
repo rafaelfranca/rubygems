@@ -174,9 +174,9 @@ module Bundler
       msg = String.new(dep.name)
       msg << " (#{dep.requirement})" unless dep.requirement == Gem::Requirement.default
 
-      if dep.is_a?(Bundler::Dependency)
-        platform_string = dep.platforms.join(", ")
-        msg << " " << platform_string if !platform_string.empty? && platform_string != Gem::Platform::RUBY
+      if dep.is_a?(Bundler::DepProxy)
+        platform = dep.__platform
+        msg << " " << platform.to_s if platform && GemHelpers.generic(platform) != Gem::Platform::RUBY
       end
 
       msg << " from the `#{dep.source}` source" if print_source && dep.source
